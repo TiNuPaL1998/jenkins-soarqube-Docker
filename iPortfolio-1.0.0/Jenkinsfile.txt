@@ -1,8 +1,23 @@
-stage('Run HTML Lint') {
-    steps {
-        // Run htmlhint and fail if any errors are found
-        sh '''
-        htmlhint ./iPortfolio-1.0.0/*.html
-        '''
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Install htmlhint') {
+            steps {
+                sh 'npm install -g htmlhint'
+            }
+        }
+        stage('Run HTML Lint') {
+            steps {
+                sh '''
+                htmlhint ./iPortfolio-1.0.0/*.html
+                '''
+            }
+        }
     }
 }
